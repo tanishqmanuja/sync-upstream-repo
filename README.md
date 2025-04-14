@@ -30,6 +30,8 @@ env:
   MERGE_ARGS: ""
   # Optional push arguments
   PUSH_ARGS: ""
+  # Optional git config arguments
+  GIT_CONFIG_ARGS: ""
 
 # This runs every day on 1801 UTC
 on:
@@ -52,4 +54,5 @@ jobs:
           fetch_args: ${{ env.FETCH_ARGS }}
           merge_args: ${{ env.MERGE_ARGS }}
           push_args: ${{ env.PUSH_ARGS }}
+          git_config_args: ${{ env.GIT_CONFIG_ARGS }}
 ```
