@@ -9,6 +9,7 @@ GITHUB_TOKEN=$4
 FETCH_ARGS=$5
 MERGE_ARGS=$6
 PUSH_ARGS=$7
+GIT_CONFIG_ARGS=$8
 
 if [[ -z "$UPSTREAM_REPO" ]]; then
   echo "Missing \$UPSTREAM_REPO"
@@ -34,6 +35,13 @@ git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git config --local user.password ${GITHUB_TOKEN}
 git config checkout.defaultRemote origin
+
+if [[ -n "$GIT_CONFIG_ARGS" ]]; then
+  echo "$GIT_CONFIG_ARGS" | while IFS= read -r line; do
+    echo "Running: git config --local $line"
+    git config --local $line
+  done
+fi
 
 git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 

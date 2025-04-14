@@ -1,6 +1,6 @@
 name: Sync and merge upstream repository with your current repository
 description: Syncs and merges your current repository with the upstream repository. Fork of https://github.com/Dabreadman/sync-upstream-repo.
-author: verticalsync
+author: tanishqmanuja
 
 inputs:
   upstream_repo:
@@ -29,11 +29,14 @@ inputs:
     description: Git push arguments
     required: false
     default: ""
+  git_config_args:
+    description: Multiline git config arguments (e.g. "user.name 'Your Name'\nuser.email 'you@example.com'")
+    required: false
+    default: ""
 
 outputs:
   result:
     description: Result of the sync process
-    value: ${{ steps.merge.outputs.result }}
 
 runs:
   using: "docker"
@@ -46,6 +49,7 @@ runs:
     - ${{ inputs.fetch_args }}
     - ${{ inputs.merge_args }}
     - ${{ inputs.push_args }}
+    - ${{ inputs.git_config_args }}
 
 branding:
   icon: "git-merge"
